@@ -1,0 +1,3037 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>They & Them Bazar Novedades</title>
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        /* Encabezado Principal con Logo a la Izquierda */
+        .header-wrapper {
+            background-color: #1b2a38;
+            width: 100%;
+        }
+        .header-container {
+            background-color: #1b2a38;
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header-logo {
+            max-width: 120px;
+            height: auto;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+        .header-text-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+        .header-title {
+            font-size: 26px;
+            font-weight: bold;
+            margin: 0 0 5px 0;
+        }
+        .header-subtitle {
+            font-size: 14px;
+            color: #d1d5db;
+            margin: 0;
+        }
+
+        /* Barra de Control, Lupa y Filtros */
+        .controls-section {
+            background-color: #2c164a;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .top-bar-controls {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        .btn-cuaderno {
+            background-color: #8b00ff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            transition: background 0.2s;
+        }
+        .btn-cuaderno:hover {
+            background-color: #9d22ff;
+        }
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+        }
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+            font-size: 16px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border-radius: 25px;
+            border: none;
+            font-size: 15px;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .categories-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 1200px;
+            width: 100%;
+            justify-content: flex-start;
+        }
+        .category-btn {
+            background-color: #4a2875;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+        .category-btn:hover, .category-btn.active {
+            background-color: #7b2cbf;
+        }
+
+        /* Contenedor del Catálogo de Productos */
+        .catalog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .card img:hover {
+            transform: scale(1.05);
+        }
+        /* Icono de Lupa flotante sobre la imagen */
+        .zoom-icon {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 6px 8px;
+            border-radius: 50%;
+            font-size: 12px;
+            pointer-events: none;
+        }
+        .card-content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+        .card-header-tags {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .card-badge {
+            background-color: #e0e0e0;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+        }
+        .stock-badge {
+            font-size: 12px;
+            color: #28a745;
+        }
+        .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            text-transform: uppercase;
+        }
+        .card-description {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .card-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        .price-and-qty {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        /* Selector de cantidad en tarjeta */
+        .card-qty-selector {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            background: #fff;
+        }
+        .card-qty-selector button {
+            background: #f1f1f1;
+            border: none;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #333;
+        }
+        .card-qty-selector button:hover {
+            background: #e0e0e0;
+        }
+        .card-qty-selector span {
+            padding: 0 8px;
+            font-size: 14px;
+            font-weight: bold;
+            min-width: 15px;
+            text-align: center;
+        }
+
+        .card-actions-row {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        .btn-whatsapp:hover {
+            background-color: #20ba5a;
+        }
+        .btn-add-cart {
+            background-color: #8b00ff;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: background 0.2s;
+        }
+        .btn-add-cart:hover {
+            background-color: #9d22ff;
+        }
+
+        /* VENTANA MODAL DEL CARRITO */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: #2c3e50;
+            font-size: 20px;
+        }
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #777;
+        }
+        .modal-body {
+            overflow-y: auto;
+            flex-grow: 1;
+            margin-bottom: 15px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .cart-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .cart-item-title {
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+        .cart-item-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .cart-item-controls button {
+            background: #ddd;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-remove {
+            background: #ff4d4d !important;
+            color: white;
+        }
+        .modal-footer {
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        .btn-checkout {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+        }
+        .btn-checkout:hover {
+            background-color: #20ba5a;
+        }
+
+        /* MODAL DE LUPA / ZOOM DE IMAGEN */
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .zoom-modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+        .zoom-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .zoom-caption {
+            margin: 15px;
+            color: #ccc;
+            text-align: center;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ENCABEZADO CON LOGO A LA IZQUIERDA -->
+    <header class="header-wrapper">
+        <div class="header-container">
+            <img src="img/logoparalasia.png" alt="They & Them Bazar Novedades" class="header-logo">
+            <div class="header-text-group">
+                <h1 class="header-title">They & Them Bazar Novedades</h1>
+                <p class="header-subtitle">Encuentra lo que buscas al mejor precio con productos de catálogo y más. ¡¡ANÍMATE!!</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- BARRA DE BÚSQUEDA (LUPA), CARRITO Y CATEGORÍAS -->
+    <div class="controls-section">
+        <div class="top-bar-controls">
+            <button class="btn-cuaderno" onclick="abrirModalCarrito()">
+                <i class="fa-solid fa-cart-shopping"></i> Agregar al carrito <span id="contador-carrito">0</span>
+            </button>
+        </div>
+        
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="buscador" class="search-input" placeholder="Buscar por nombre o código..." onkeyup="filtrarProductos()">
+        </div>
+
+        <div class="categories-nav">
+            <button class="category-btn active" onclick="filtrarCategoria('todos', this)"><i class="fa-solid fa-square-full"></i> Todos</button>
+            <button class="category-btn" onclick="filtrarCategoria('perfumes hombre', this)"><i class="fa-solid fa-mars"></i> Perfumes Hombre</button>
+            <button class="category-btn" onclick="filtrarCategoria('perfumes mujer', this)"><i class="fa-solid fa-venus"></i> Perfumes Mujer</button>
+            <button class="category-btn" onclick="filtrarCategoria('protector solar', this)"><i class="fa-solid fa-sun"></i> Protector Solar</button>
+            <button class="category-btn" onclick="filtrarCategoria('niños', this)"><i class="fa-solid fa-child"></i> Niños</button>
+            <button class="category-btn" onclick="filtrarCategoria('cosmetología', this)"><i class="fa-solid fa-wand-magic-sparkles"></i> Cosmetología</button>
+            <button class="category-btn" onclick="filtrarCategoria('hogar', this)"><i class="fa-solid fa-house"></i> Hogar</button>
+            <button class="category-btn" onclick="filtrarCategoria('cuida tu piel', this)"><i class="fa-solid fa-hand-holding-medical"></i> Cuida tu Piel</button>
+        </div>
+    </div>
+
+    <!-- CATÁLOGO DE PRODUCTOS -->
+    <div class="catalog-container" id="catalogo">
+
+        <!-- PRODUCTO 1 -->
+        <div class="card" data-category="protector solar" data-name="total block protector solar kids spf 100 140g">
+            <div class="image-container">
+                <img src="img/0013520.jpg" alt="Total Block Protector Solar Kids SPF 100 140g" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PROTECTOR SOLAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">Total Block Protector Solar Kids SPF 100 140g</h3>
+                    <p class="card-description">Total Block Kids renovó su fórmula de SPF 70 a SPF 100 para brindar mayor protección para la delicada piel de los niños. Además, ahora protege contra el 100% de los rayos dañinos del sol con una fórmula no lágrimas y más contenido para que la diversión no termine.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="17.99">$17,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'Total Block Protector Solar Kids SPF 100 140g', 17.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20Total%20Block%20Protector%20Solar%20Kids%20SPF%20100%20140g" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 2 -->
+        <div class="card" data-category="perfumes hombre" data-name="dendur 75ml yambal h">
+            <div class="image-container">
+                <img src="img/0013697.jpg" alt="DENDUR 75ML YAMBAL H" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">DENDUR 75ML YAMBAL H</h3>
+                    <p class="card-description">Un perfume para hombre ambarado especiado que te acompañará a recorrer kilómetros. Un perfume con notas especiadas de pimienta negra y jengibre, sobre toques ahumados de hojas de tabaco. Su intensidad alta es perfecta para sentir cada detalle y disfrutar el camino.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="27.99">$27,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'DENDUR 75ML YAMBAL H', 27.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20DENDUR%2075ML%20YAMBAL%20H" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 3 -->
+        <div class="card" data-category="perfumes hombre" data-name="osadia limited edition 75ml yambal">
+            <div class="image-container">
+                <img src="img/0014191.jpg" alt="OSADIA LIMITED EDITION 75ML YAMBAL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">OSADIA LIMITED EDITION 75ML YAMBAL</h3>
+                    <p class="card-description">Fragancia masculina intensa y sofisticada creada para hombres seguros, modernos y con actitud audaz. Su aroma combina notas frescas, especiadas y amaderadas que transmiten fuerza, elegancia y personalidad desde la primera aplicación.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="27.99">$27,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'OSADIA LIMITED EDITION 75ML YAMBAL', 27.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20OSADIA%20LIMITED%20EDITION%2075ML%20YAMBAL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 4 -->
+        <div class="card" data-category="perfumes hombre" data-name="zentro 75ml yambal h">
+            <div class="image-container">
+                <img src="img/0012788.jpg" alt="ZENTRO 75ML YAMBAL H" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">ZENTRO 75ML YAMBAL H</h3>
+                    <p class="card-description">Perfume para hombre ambarado maderoso. Un aroma innovador y cautivador con notas cítricas de yuzu, cedro y el toque provocativo de haba tonka. Su intensidad muy alta lo convierte en el infaltable para el hombre moderno.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="29.99">$29,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'ZENTRO 75ML YAMBAL H', 29.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20ZENTRO%2075ML%20YAMBAL%20H" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 5 -->
+        <div class="card" data-category="perfumes hombre" data-name="l´attraction 100ml l´bel">
+            <div class="image-container">
+                <img src="img/3503.jpg" alt="L´ATTRACTION 100ML L´BEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">L´ATTRACTION 100ML L´BEL</h3>
+                    <p class="card-description">Fragancia masculina herbal aromática creada para el hombre elegante, seguro de sí mismo y con una presencia que atrae todas las miradas. Su fórmula de alta concentración ofrece gran intensidad y duración.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="24.99">$24,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'L´ATTRACTION 100ML L´BEL', 24.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20L´ATTRACTION%20100ML%20L´BEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 6 -->
+        <div class="card" data-category="perfumes hombre" data-name="kalos sport 100ml esika">
+            <div class="image-container">
+                <img src="img/3502.jpg" alt="KALOS SPORT 100ML ESIKA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">KALOS SPORT 100ML ESIKA</h3>
+                    <p class="card-description">Fragancia de la familia olfativa Aromática para Hombres. Las Notas de Salida son bergamota, limón (lima ácida) y grosellas negras; las Notas de Corazón son azucena y clavel; las Notas de Fondo son cedro, almizcle y haba tonka.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="18.99">$18,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'KALOS SPORT 100ML ESIKA', 18.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20KALOS%20SPORT%20100ML%20ESIKA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 7 -->
+        <div class="card" data-category="perfumes hombre" data-name="all black 90ml cyzone">
+            <div class="image-container">
+                <img src="img/3707.jpg" alt="ALL BLACK 90ML CYZONE" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">ALL BLACK 90ML CYZONE</h3>
+                    <p class="card-description">Fragancia masculina de 90 ml perteneciente a la familia oriental especiada, caracterizada por un aroma intenso, cálido y seductor ideal para uso diario o nocturno.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="14.99">$14,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'ALL BLACK 90ML CYZONE', 14.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20ALL%20BLACK%2090ML%20CYZONE" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 8 -->
+        <div class="card" data-category="perfumes hombre" data-name="d´orsay grand 90ml esika">
+            <div class="image-container">
+                <img src="img/3969.jpg" alt="D´ORSAY GRAND 90ML ESIKA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">D´ORSAY GRAND 90ML ESIKA</h3>
+                    <p class="card-description">Fragancia masculina de familia oriental maderosa, diseñada con tecnología Essent Tech para maximizar su fijación y larga duración. Destaca por un carácter elegante e intenso.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="19.99">$19,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'D´ORSAY GRAND 90ML ESIKA', 19.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20D´ORSAY%20GRAND%2090ML%20ESIKA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 9 -->
+        <div class="card" data-category="perfumes hombre" data-name="blue night 100ml lbel">
+            <div class="image-container">
+                <img src="img/3459.jpg" alt="BLUE NIGHT 100ML LBEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">BLUE NIGHT 100ML LBEL</h3>
+                    <p class="card-description">Fragancia masculina de alta concentración y familia olfativa herbal maderosa / fresca. Destaca por combinar notas acuáticas y de salvia con un fondo cálido de haba tonka y maderas.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="24.99">$24,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'BLUE NIGHT 100ML LBEL', 24.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20BLUE%20NIGHT%20100ML%20LBEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 10 -->
+        <div class="card" data-category="perfumes hombre" data-name="forze 50ml cyzone">
+            <div class="image-container">
+                <img src="img/3967.jpg" alt="FORZE 50ML CYZONE" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">FORZE 50ML CYZONE</h3>
+                    <p class="card-description">Fragancia masculina de la familia olfativa herbal maderosa/acuática. Destaca por combinar frescura marina con un fondo cálido y versátil.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="14.99">$14,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'FORZE 50ML CYZONE', 14.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20FORZE%2050ML%20CYZONE" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 11 -->
+        <div class="card" data-category="perfumes hombre" data-name="blue infinite lbrl 100ml">
+            <div class="image-container">
+                <img src="img/3966.jpg" alt="BLUE INFINITE LBRL 100ML" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">BLUE INFINITE LBRL 100ML</h3>
+                    <p class="card-description">Fragancia masculina de 100 ml con un aroma herbal y fresco, de muy alta concentración. Creado para hombres libres e independientes.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="24.99">$24,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'BLUE INFINITE LBRL 100ML', 24.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20BLUE%20INFINITE%20LBRL%20100ML" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 12 -->
+        <div class="card" data-category="perfumes hombre" data-name="nitro air, 100 ml yambal">
+            <div class="image-container">
+                <img src="img/4007.jpg" alt="NITRO AIR, 100 ML YAMBAL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES HOMBRE</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">NITRO AIR, 100 ML YAMBAL</h3>
+                    <p class="card-description">Un perfume herbal aromático para hombre muy popular y económico. Destaca por sus notas frescas de lavanda, pimienta blanca y maderas de sándalo o guayacán.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="15.99">$15,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'NITRO AIR, 100 ML YAMBAL', 15.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20NITRO%20AIR,%20100%20ML%20YAMBAL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 13 -->
+        <div class="card" data-category="perfumes mujer" data-name="dulce amistad 50ml yambal m">
+            <div class="image-container">
+                <img src="img/0013203.jpg" alt="DULCE AMISTAD 50ML YAMBAL M" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">DULCE AMISTAD 50ML YAMBAL M</h3>
+                    <p class="card-description">Fragancia femenina de 50 ml. Su aroma combina notas frutales y florales con un fondo dulce de frambuesa, flor de cerezo y helado de vainilla.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="23.99">$23,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'DULCE AMISTAD 50ML YAMBAL M', 23.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20DULCE%20AMISTAD%2050ML%20YAMBAL%20M" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 14 -->
+        <div class="card" data-category="perfumes mujer" data-name="cielo 50ml yambal">
+            <div class="image-container">
+                <img src="img/0013641.jpg" alt="CIELO 50ML YAMBAL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">CIELO 50ML YAMBAL</h3>
+                    <p class="card-description">El Cielo de Yanbal (50 ml) es un emblemático Eau de Parfum para mujer con un aroma floral ambarado. Combina notas de jazmín, flor de loto fresca y musk.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="27.99">$27,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'CIELO 50ML YAMBAL', 27.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20CIELO%2050ML%20YAMBAL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 15 -->
+        <div class="card" data-category="perfumes mujer" data-name="osadia rojo 50ml yambal">
+            <div class="image-container">
+                <img src="img/0013197.jpg" alt="OSADIA ROJO 50ML YAMBAL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">OSADIA ROJO 50ML YAMBAL</h3>
+                    <p class="card-description">Fragancia femenina de alta intensidad con un aroma floral frutal. Destaca por notas de granada, flor de maracuyá y jengibre, inspirada en la energía de la mujer latina.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="27.99">$27,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'OSADIA ROJO 50ML YAMBAL', 27.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20OSADIA%20ROJO%2050ML%20YAMBAL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 16 -->
+        <div class="card" data-category="perfumes mujer" data-name="osadia limited edition 50ml yambal">
+            <div class="image-container">
+                <img src="img/0014190.jpg" alt="OSADIA LIMITED EDITION 50ML YAMBAL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">OSADIA LIMITED EDITION 50ML YAMBAL</h3>
+                    <p class="card-description">Fragancia de alta intensidad disponible para mujer (frutal floral de 50 ml con granada, flor de maracuyá y jengibre), pensada para personalidades audaces.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="27.99">$27,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'OSADIA LIMITED EDITION 50ML YAMBAL', 27.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20OSADIA%20LIMITED%20EDITION%2050ML%20YAMBAL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 17 -->
+        <div class="card" data-category="perfumes mujer" data-name="ccori rubi 50ml yambal">
+            <div class="image-container">
+                <img src="img/0014215.jpg" alt="CCORI RUBI 50ML YAMBAL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">CCORI RUBI 50ML YAMBAL</h3>
+                    <p class="card-description">Perfume femenino de la familia olfativa ámbar floral, caracterizado por su aroma intenso, sofisticado y altamente sensual.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="28.99">$28,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'CCORI RUBI 50ML YAMBAL', 28.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20CCORI%20RUBI%2050ML%20YAMBAL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 18 -->
+        <div class="card" data-category="perfumes mujer" data-name="reve sensuelle 50ml l´bel">
+            <div class="image-container">
+                <img src="img/3983.jpg" alt="REVE SENSUELLE 50ML L´BEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">REVE SENSUELLE 50ML L´BEL</h3>
+                    <p class="card-description">Rêve Sensuelle es un perfume para mujer de la familia olfativa oriental dulce amaderada. Destaca por su alta concentración aromática y gran fijación.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="24.99">$24,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'REVE SENSUELLE 50ML L´BEL', 24.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20REVE%20SENSUELLE%2050ML%20L´BEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 19 -->
+        <div class="card" data-category="perfumes mujer" data-name="hypnotisant 50ml l´bel">
+            <div class="image-container">
+                <img src="img/3984.jpg" alt="HYPNOTISANT 50ML L´BEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">HYPNOTISANT 50ML L´BEL</h3>
+                    <p class="card-description">Perfume femenino de alta concentración que pertenece a la familia olfativa floral frutal. Su propuesta gira en torno a un concepto misterioso y elegante.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="19.99">$19,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'HYPNOTISANT 50ML L´BEL', 19.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20HYPNOTISANT%2050ML%20L´BEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 20 -->
+        <div class="card" data-category="perfumes mujer" data-name="temptation 50ml yambal">
+            <div class="image-container">
+                <img src="img/0012907.jpg" alt="TEMPTATION 50ML YAMBAL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">TEMPTATION 50ML YAMBAL</h3>
+                    <p class="card-description">Un perfume de mujer floral especiado que combina la exuberancia de la rosa búlgara, gardenia y clavo de olor. ¡Un verdadero elixir de pura tentación!</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="28.99">$28,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'TEMPTATION 50ML YAMBAL', 28.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20TEMPTATION%2050ML%20YAMBAL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 21 -->
+        <div class="card" data-category="perfumes mujer" data-name="dancing night 90ml cyzone">
+            <div class="image-container">
+                <img src="img/3509.jpg" alt="DANCING NIGHT 90ML CYZONE" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">DANCING NIGHT 90ML CYZONE</h3>
+                    <p class="card-description">Fragancia femenina de la familia olfativa oriental dulce, diseñada especialmente para destacar en salidas nocturnas, fiestas o eventos especiales.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="13.99">$13,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'DANCING NIGHT 90ML CYZONE', 13.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20DANCING%20NIGHT%2090ML%20CYZONE" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 22 -->
+        <div class="card" data-category="perfumes mujer" data-name="vibranza luminous 45ml ésika">
+            <div class="image-container">
+                <img src="img/3513.jpg" alt="VIBRANZA LUMINOUS 45ML ésika" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">VIBRANZA LUMINOUS 45ML ésika</h3>
+                    <p class="card-description">Perfume femenino de alta concentración que pertenece a la familia olfativa floral oriental, diseñado para la mujer sofisticada, fuerte y sensual.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="21.99">$21,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'VIBRANZA LUMINOUS 45ML ésika', 21.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20VIBRANZA%20LUMINOUS%2045ML%20ésika" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 23 -->
+        <div class="card" data-category="perfumes mujer" data-name="imari free 50ml avon">
+            <div class="image-container">
+                <img src="img/7909189357413.jpg" alt="IMARI FREE 50ML AVON" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">IMARI FREE 50ML AVON</h3>
+                    <p class="card-description">Fragancia de la familia olfativa Amaderada Aromática / Floral Chipre para mujeres. Inspirada en la frescura y la fuerza del océano.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="11.99">$11,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'IMARI FREE 50ML AVON', 11.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20IMARI%20FREE%2050ML%20AVON" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 24 -->
+        <div class="card" data-category="perfumes mujer" data-name="miss 50ml l´bel">
+            <div class="image-container">
+                <img src="img/3211.jpg" alt="MISS 50ML L´BEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">MISS 50ML L´BEL</h3>
+                    <p class="card-description">Fragancia femenina de muy alta concentración y larga duración perteneciente a la familia olfativa Floral Frutal.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="19.99">$19,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'MISS 50ML L´BEL', 19.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20MISS%2050ML%20L´BEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 25 -->
+        <div class="card" data-category="perfumes mujer" data-name="vainilla scent 50ml ésika">
+            <div class="image-container">
+                <img src="img/3986.jpg" alt="VAINILLA SCENT 50ML ésika" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">VAINILLA SCENT 50ML ésika</h3>
+                    <p class="card-description">Fragancia con notas de vainilla que combinan calidez, sofisticación y misterio, fusionándose con resinas, especias, flores y maderas.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="13.99">$13,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'VAINILLA SCENT 50ML ésika', 13.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20VAINILLA%20SCENT%2050ML%20ésika" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 26 -->
+        <div class="card" data-category="cosmetología" data-name="avon color trend delineador de ojos liquido negro mate">
+            <div class="image-container">
+                <img src="img/7909189200733.jpg" alt="AVON COLOR TREND DELINEADOR DE OJOS LÍQUIDO NEGRO MATE" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">AVON COLOR TREND DELINEADOR DE OJOS LÍQUIDO NEGRO MATE</h3>
+                    <p class="card-description">El formato más popular de la línea. Viene en una presentación de 3 ml con un pincel de punta fina que permite trazos precisos, desde líneas delgadas hasta un cat-eye grueso.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="2.99">$2,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'AVON COLOR TREND DELINEADOR DE OJOS LÍQUIDO NEGRO MATE', 2.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20AVON%20COLOR%20TREND%20DELINEADOR%20DE%20OJOS%20LÍQUIDO%20NEGRO%20MATE" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 27 -->
+        <div class="card" data-category="cosmetología" data-name="mascara de pestañas a prueba de agua magnetic lash studio look cyzone, 8g">
+            <div class="image-container">
+                <img src="img/3213.jpg" alt="MÁSCARA DE PESTAÑAS A PRUEBA DE AGUA MAGNETIC LASH STUDIO LOOK CYZONE, 8G" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">MÁSCARA DE PESTAÑAS A PRUEBA DE AGUA MAGNETIC LASH STUDIO LOOK CYZONE, 8G</h3>
+                    <p class="card-description">Tecnología revolucionaria Smart Magnet con esferas que brinda 7 veces más largo, 6 veces más volumen y 5 veces más rizadas con Vitamina B5 y aceite de argán.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="5.99">$5,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'MÁSCARA DE PESTAÑAS A PRUEBA DE AGUA MAGNETIC LASH STUDIO LOOK CYZONE, 8G', 5.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20MÁSCARA%20DE%20PESTAÑAS%20A%20PRUEBA%20DE%20AGUA%20MAGNETIC%20LASH%20STUDIO%20LOOK%20CYZONE,%208G" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 28 -->
+        <div class="card" data-category="cosmetología" data-name="delineador liquido eye pro punta plumon 3ml esika">
+            <div class="image-container">
+                <img src="img/4001.jpg" alt="DELINEADOR LÍQUIDO EYE PRO PUNTA PLUMÓN 3ml ÉSIKA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">DELINEADOR LÍQUIDO EYE PRO PUNTA PLUMÓN 3ml ÉSIKA</h3>
+                    <p class="card-description">Duración extrema: Ofrece hasta 36 horas de duración sin correrse ni perder intensidad, es una fórmula a prueba de agua de alta pigmentación.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="2.99">$2,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'DELINEADOR LÍQUIDO EYE PRO PUNTA PLUMÓN 3ml ÉSIKA', 2.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20DELINEADOR%20LÍQUIDO%20EYE%20PRO%20PUNTA%20PLUMÓN%203ml%20ÉSIKA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 29 -->
+        <div class="card" data-category="cosmetología" data-name="mascara pestañas esika colorfix power lash volumen 30h">
+            <div class="image-container">
+                <img src="img/4002.jpg" alt="MASCARA PESTAÑAS ESIKA COLORFIX POWER LASH VOLUMEN 30H" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">MASCARA PESTAÑAS ESIKA COLORFIX POWER LASH VOLUMEN 30H</h3>
+                    <p class="card-description">La máscara de pestañas multibeneficios para más largo y volumen, a prueba de agua. Capacidad: 8 g.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="6.99">$6,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'MASCARA PESTAÑAS ESIKA COLORFIX POWER LASH VOLUMEN 30H', 6.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20MASCARA%20PESTAÑAS%20ESIKA%20COLORFIX%20POWER%20LASH%20VOLUMEN%2030H" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 30 -->
+        <div class="card" data-category="cosmetología" data-name="mega full volume 4d mascara de pestañas">
+            <div class="image-container">
+                <img src="img/3716.jpg" alt="MEGA FULL VOLUME 4D MÁSCARA DE PESTAÑAS" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">MEGA FULL VOLUME 4D MÁSCARA DE PESTAÑAS</h3>
+                    <p class="card-description">Mega Full Volume 4D de Ésika es una máscara de pestañas a prueba de agua diseñada para aportar un volumen extremo y definición de impacto sin dejar grumos.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="5.99">$5,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'MEGA FULL VOLUME 4D MÁSCARA DE PESTAÑAS', 5.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20MEGA%20FULL%20VOLUME%204D%20MÁSCARA%20DE%20PESTAÑAS" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 31 -->
+        <div class="card" data-category="cosmetología" data-name="delineador liquido avon power stay | blackest black (negro), 1.2ml">
+            <div class="image-container">
+                <img src="img/7909189217359.jpg" alt="DELINEADOR LÍQUIDO AVON POWER STAY | BLACKEST BLACK (NEGRO), 1.2ML" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">DELINEADOR LÍQUIDO AVON POWER STAY | BLACKEST BLACK (NEGRO), 1.2ML</h3>
+                    <p class="card-description">Cuenta con una punta ultrafina de alta precisión ideal para trazos finos o gruesos. Ofrece un acabado ultra mate e intenso.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="5.99">$5,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'DELINEADOR LÍQUIDO AVON POWER STAY | BLACKEST BLACK (NEGRO), 1.2ML', 5.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20DELINEADOR%20LÍQUIDO%20AVON%20POWER%20STAY%20|%20BLACKEST%20BLACK%20(NEGRO),%201.2ML" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 32 -->
+        <div class="card" data-category="cosmetología" data-name="mascara de pestañas ultra curl lash studio look">
+            <div class="image-container">
+                <img src="img/4004.jpg" alt="MÁSCARA DE PESTAÑAS ULTRA CURL LASH STUDIO LOOK" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">MÁSCARA DE PESTAÑAS ULTRA CURL LASH STUDIO LOOK</h3>
+                    <p class="card-description">Máscara de pestañas con 8x más rizo al instante y duración 24 horas. Medidas aproximadas: Alto 136mm; Ancho: 20mm, Fondo: 20mm.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="6.49">$6,49</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'MÁSCARA DE PESTAÑAS ULTRA CURL LASH STUDIO LOOK', 6.49)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20MÁSCARA%20DE%20PESTAÑAS%20ULTRA%20CURL%20LASH%20STUDIO%20LOOK" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 33 -->
+        <div class="card" data-category="cosmetología" data-name="balsamo con color hidrabalm pro rosa smoothie esika">
+            <div class="image-container">
+                <img src="img/3722.jpg" alt="BÁLSAMO CON COLOR HIDRABALM PRO ROSA SMOOTHIE ÉSIKA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">BÁLSAMO CON COLOR HIDRABALM PRO ROSA SMOOTHIE ÉSIKA</h3>
+                    <p class="card-description">Tono Rosa Smoothie: Es un rosa nude suave y sutil con un acabado de alto brillo natural. Al ser un bálsamo, su pigmentación es ligera y funciona mediante un color graduable.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="3.99">$3,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'BÁLSAMO CON COLOR HIDRABALM PRO ROSA SMOOTHIE ÉSIKA', 3.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20BÁLSAMO%20CON%20COLOR%20HIDRABALM%20PRO%20ROSA%20SMOOTHIE%20ÉSIKA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 34 -->
+        <div class="card" data-category="cosmetología" data-name="mascara de pestañas mega full size extender primer 8g">
+            <div class="image-container">
+                <img src="img/4005.jpg" alt="MÁSCARA DE PESTAÑAS MEGA FULL SIZE EXTENDER PRIMER 8G" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">MÁSCARA DE PESTAÑAS MEGA FULL SIZE EXTENDER PRIMER 8G</h3>
+                    <p class="card-description">Destaca tu mirada con esta máscara Ésika que define y cuida tus pestañas. Se verán naturalmente suaves y peinadas en todo momento.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="6.99">$6,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'MÁSCARA DE PESTAÑAS MEGA FULL SIZE EXTENDER PRIMER 8G', 6.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20MÁSCARA%20DE%20PESTAÑAS%20MEGA%20FULL%20SIZE%20EXTENDER%20PRIMER%208G" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 35 -->
+        <div class="card" data-category="niños" data-name="desenredante de cabello mini chics 200 ml esika">
+            <div class="image-container">
+                <img src="img/4006.jpg" alt="DESENREDANTE DE CABELLO MINI CHICS 200 ML ésika" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">NIÑOS</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">DESENREDANTE DE CABELLO MINI CHICS 200 ML ésika</h3>
+                    <p class="card-description">Desenredante con vitaminas y un delicioso aroma a frescas notas florales para el cuidado diario de los niños.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="6.99">$6,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'DESENREDANTE DE CABELLO MINI CHICS 200 ML ésika', 6.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20DESENREDANTE%20DE%20CABELLO%20MINI%20CHICS%20200%20ML%20ésika" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 36 -->
+        <div class="card" data-category="hogar" data-name="wipwip arranca grasa 600ml boom">
+            <div class="image-container">
+                <img src="img/7861111430161.jpg" alt="WIPWIP ARRANCA GRASA 600ML BOOM" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">HOGAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">WIPWIP ARRANCA GRASA 600ML BOOM</h3>
+                    <p class="card-description">Con Arranca Grasa WIP WIP dile adiós a la suciedad más difícil en segundos. Su poderosa fórmula actúa rápido, desintegrando la grasa sin dañar tus superficies.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="4.62">$4,62</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'WIPWIP ARRANCA GRASA 600ML BOOM', 4.62)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20WIPWIP%20ARRANCA%20GRASA%20600ML%20BOOM" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 37 -->
+        <div class="card" data-category="hogar" data-name="wip wip lim antibacterial 600ml boom">
+            <div class="image-container">
+                <img src="img/7861111431311.jpg" alt="WIP WIP LIM ANTIBACTERIAL 600ML BOOM" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">HOGAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">WIP WIP LIM ANTIBACTERIAL 600ML BOOM</h3>
+                    <p class="card-description">Diseñado específicamente para limpiar, remover manchas y desinfectar el interior de los electrodomésticos sin dejar residuos dañinos.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="4.25">$4,25</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'WIP WIP LIM ANTIBACTERIAL 600ML BOOM', 4.25)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20WIP%20WIP%20LIM%20ANTIBACTERIAL%20600ML%20BOOM" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 38 -->
+        <div class="card" data-category="hogar" data-name="wipwip ultrasarro 600ml boom">
+            <div class="image-container">
+                <img src="img/7861111430246.jpg" alt="WIPWIP ULTRASARRO 600ML BOOM" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">HOGAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">WIPWIP ULTRASARRO 600ML BOOM</h3>
+                    <p class="card-description">Conserva limpio y libre de hongos los espacios de tu baño gracias al poder removedor y desinfectante que elimina los residuos de jabón y sarro.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="3.59">$3,59</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'WIPWIP ULTRASARRO 600ML BOOM', 3.59)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20WIPWIP%20ULTRASARRO%20600ML%20BOOM" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 39 -->
+        <div class="card" data-category="hogar" data-name="wipwip cloro gel 1000ml boom">
+            <div class="image-container">
+                <img src="img/7861111430277.jpg" alt="WIPWIP CLORO GEL 1000ML BOOM" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">HOGAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">WIPWIP CLORO GEL 1000ML BOOM</h3>
+                    <p class="card-description">Mantiene el control de la limpieza con su textura gel que se adhiere con facilidad actuando como desinfectante y blanqueador.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="3.70">$3,70</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'WIPWIP CLORO GEL 1000ML BOOM', 3.70)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20WIPWIP%20CLORO%20GEL%201000ML%20BOOM" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 40 -->
+        <div class="card" data-category="hogar" data-name="wipwip cloro sin aroma 1000ml boom">
+            <div class="image-container">
+                <img src="img/7861111430222.jpg" alt="WIPWIP CLORO SIN AROMA 1000ML BOOM" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">HOGAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">WIPWIP CLORO SIN AROMA 1000ML BOOM</h3>
+                    <p class="card-description">Presentación litro que conserva limpio y libre de gérmenes los espacios del hogar gracias a su poder blanqueador y desinfectante que actúa al instante.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="2.16">$2,16</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'WIPWIP CLORO SIN AROMA 1000ML BOOM', 2.16)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20WIPWIP%20CLORO%20SIN%20AROMA%201000ML%20BOOM" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 41 -->
+        <div class="card" data-category="hogar" data-name="wip desoxidante de superficies 600ml boom">
+            <div class="image-container">
+                <img src="img/7861111431168.jpg" alt="WIP DESOXIDANTE DE SUPERFICIES 600ML BOOM" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">HOGAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">WIP DESOXIDANTE DE SUPERFICIES 600ML BOOM</h3>
+                    <p class="card-description">Producto líquido ideal para la limpieza del óxido generado en superficies metálicas, dejando una capa que previene el desgaste.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="4.25">$4,25</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'WIP DESOXIDANTE DE SUPERFICIES 600ML BOOM', 4.25)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20WIP%20DESOXIDANTE%20DE%20SUPERFICIES%20600ML%20BOOM" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 42 -->
+        <div class="card" data-category="hogar" data-name="tesqui quita manchas 900ml boom">
+            <div class="image-container">
+                <img src="img/7861111430499.jpg" alt="TESQUI QUITA MANCHAS 900ML BOOM" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">HOGAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">TESQUI QUITA MANCHAS 900ML BOOM</h3>
+                    <p class="card-description">Si las manchas difíciles de tu ropa antes eran un problema, ahora Tesqui quita manchas lo resolverá con sus múltiples funciones.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="4.62">$4,62</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'TESQUI QUITA MANCHAS 900ML BOOM', 4.62)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20TESQUI%20QUITA%20MANCHAS%20900ML%20BOOM" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 43 -->
+        <div class="card" data-category="hogar" data-name="wip limpia muebles boom">
+            <div class="image-container">
+                <img src="img/7861111430512.jpg" alt="WIP LIMPIA MUEBLES BOOM" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">HOGAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">WIP LIMPIA MUEBLES BOOM</h3>
+                    <p class="card-description">Limpia Muebles elimina polvo y opacidad, devolviendo brillo y una apariencia renovada a tus espacios.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="4.60">$4,60</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'WIP LIMPIA MUEBLES BOOM', 4.60)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20WIP%20LIMPIA%20MUEBLES%20BOOM" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 44 -->
+        <div class="card" data-category="cosmetología" data-name="essential agua micelar efecto antiedad 180ml l´bel">
+            <div class="image-container">
+                <img src="img/4008.jpg" alt="ESSENTIAL AGUA MICELAR EFECTO ANTIEDAD 180ML L´BEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">ESSENTIAL AGUA MICELAR EFECTO ANTIEDAD 180ML L´BEL</h3>
+                    <p class="card-description">Es un Agua Micelar con Ácido Hialurónico para todo tipo de piel, incluso pieles sensibles y con poder desmaquillante.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="10.99">$10,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'ESSENTIAL AGUA MICELAR EFECTO ANTIEDAD 180ML L´BEL', 10.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20ESSENTIAL%20AGUA%20MICELAR%20EFECTO%20ANTIEDAD%20180ML%20L´BEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 45 -->
+        <div class="card" data-category="cosmetología" data-name="agua micelar efecto matificante essential 180 ml l´bel">
+            <div class="image-container">
+                <img src="img/4009.jpg" alt="AGUA MICELAR EFECTO MATIFICANTE ESSENTIAL 180 ML L´BEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">AGUA MICELAR EFECTO MATIFICANTE ESSENTIAL 180 ML L´BEL</h3>
+                    <p class="card-description">Agua micelar con efecto matificante diseñada para pieles mixtas a grasas, limpia impurezas y controla el exceso de sebo.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="10.99">$10,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'AGUA MICELAR EFECTO MATIFICANTE ESSENTIAL 180 ML L´BEL', 10.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20AGUA%20MICELAR%20EFECTO%20MATIFICANTE%20ESSENTIAL%20180%20ML%20L´BEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 46 -->
+        <div class="card" data-category="cosmetología" data-name="essential mujer desmaquillador bifásico 125ml l´bel">
+            <div class="image-container">
+                <img src="img/3201.jpg" alt="ESSENTIAL MUJER DESMAQUILLADOR BIFÁSICO 125ML L´BEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">ESSENTIAL MUJER DESMAQUILLADOR BIFÁSICO 125ML L´BEL</h3>
+                    <p class="card-description">Loción desmaquillante bifásica con efecto détox y potente activo antioxidante que detoxifica la piel removiendo maquillaje resistente.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="8.99">$8,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'ESSENTIAL MUJER DESMAQUILLADOR BIFÁSICO 125ML L´BEL', 8.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20ESSENTIAL%20MUJER%20DESMAQUILLADOR%20BIFÁSICO%20125ML%20L´BEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 47 -->
+        <div class="card" data-category="cosmetología" data-name="suero capilar tratamiento reconstrucción avon advance techniques, 30 ml">
+            <div class="image-container">
+                <img src="img/7909189190508.jpg" alt="SUERO CAPILAR TRATAMIENTO RECONSTRUCCIÓN AVON ADVANCE TECHNIQUES, 30 ML" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">SUERO CAPILAR TRATAMIENTO RECONSTRUCCIÓN AVON ADVANCE TECHNIQUES, 30 ML</h3>
+                    <p class="card-description">Suero capilar profesional para reparar de forma intensiva el cabello seco, químicamente tratado o severamente dañado.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="5.99">$5,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'SUERO CAPILAR TRATAMIENTO RECONSTRUCCIÓN AVON ADVANCE TECHNIQUES, 30 ML', 5.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20SUERO%20CAPILAR%20TRATAMIENTO%20RECONSTRUCCIÓN%20AVON%20ADVANCE%20TECHNIQUES,%2030%20ML" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 48 -->
+        <div class="card" data-category="cosmetología" data-name="advance techniques sérum de tratamiento rizos fabulosos - 30 ml avon">
+            <div class="image-container">
+                <img src="img/7909189247431.jpg" alt="ADVANCE TECHNIQUES SÉRUM DE TRATAMIENTO RIZOS FABULOSOS - 30 ML AVON" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">COSMETOLOGÍA</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">ADVANCE TECHNIQUES SÉRUM DE TRATAMIENTO RIZOS FABULOSOS - 30 ML AVON</h3>
+                    <p class="card-description">Colección enriquecida con aceite de ricino y complejos de proteínas que aporta fuerza y elasticidad al cabello rizado.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="5.99">$5,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'ADVANCE TECHNIQUES SÉRUM DE TRATAMIENTO RIZOS FABULOSOS - 30 ML AVON', 5.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20ADVANCE%20TECHNIQUES%20SÉRUM%20DE%20TRATAMIENTO%20RIZOS%20FABULOSOS%20-%2030%20ML%20AVON" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 49 -->
+        <div class="card" data-category="perfumes mujer" data-name="mithyka 50ml l´bel">
+            <div class="image-container">
+                <img src="img/4012.jpg" alt="MITHYKA 50ML L´BEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PERFUMES MUJER</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">MITHYKA 50ML L´BEL</h3>
+                    <p class="card-description">Perfume floral con opulentas notas de jazmín de Sambac y un seductor bouquet de flores blancas. Ofrece una estela intensa y sofisticada.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="19.99">$19,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'MITHYKA 50ML L´BEL', 19.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20MITHYKA%2050ML%20L´BEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 50 -->
+        <div class="card" data-category="protector solar" data-name="avon care sun+ 60fps 120g 7909189325733">
+            <div class="image-container">
+                <img src="img/7909189325733.jpg" alt="AVON CARE SUN+ 60FPS 120G" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PROTECTOR SOLAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">AVON CARE SUN+ 60FPS 120G</h3>
+                    <p class="card-description">Ofrece una gama completa de productos diseñados para la protección solar y el cuidado de la piel frente a los rayos UVA/UVB. Utiliza la tecnología Derma 360°, la cual proporciona una fórmula balanceada que protege contra los efectos del sol, el cloro y el agua salada, a la vez que mantiene la piel hidratada.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="11.99">$11,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'AVON CARE SUN+ 60FPS 120G', 11.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20AVON%20CARE%20SUN%2B%2060FPS%20120G" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 51 -->
+        <div class="card" data-category="protector solar" data-name="protector solar défense total fps50 80m l´bel 3534">
+            <div class="image-container">
+                <img src="img/3534.jpg" alt="PROTECTOR SOLAR DÉFENSE TOTAL FPS50 80M L´BEL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PROTECTOR SOLAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">PROTECTOR SOLAR DÉFENSE TOTAL FPS50 80M L´BEL</h3>
+                    <p class="card-description">Es un bloqueador solar multibeneficio formulado para rostro y cuerpo que ofrece una alta protección solar contra múltiples tipos de radiación, a la vez que cuida la piel del envejecimiento prematuro.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="13.99">$13,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'PROTECTOR SOLAR DÉFENSE TOTAL FPS50 80M L´BEL', 13.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20PROTECTOR%20SOLAR%20DÉFENSE%20TOTAL%20FPS50%2080M%20L´BEL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 52 -->
+        <div class="card" data-category="protector solar" data-name="skin first fps50 50ml cyzone 3533">
+            <div class="image-container">
+                <img src="img/3533.jpg" alt="SKIN FIRST FPS50 50ML CYZONE" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PROTECTOR SOLAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">SKIN FIRST FPS50 50ML CYZONE</h3>
+                    <p class="card-description">Es un bloqueador de uso diario diseñado para proteger la piel del rostro mientras mantiene un acabado mate y libre de grasa. Su fórmula está pensada para todo tipo de cutis, incluyendo pieles mixtas, grasas, sensibles o con tendencia a granitos.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="9.99">$9,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'SKIN FIRST FPS50 50ML CYZONE', 9.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20SKIN%20FIRST%20FPS50%2050ML%20CYZONE" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 53 -->
+        <div class="card" data-category="protector solar" data-name="total block spf100 50g 0014651">
+            <div class="image-container">
+                <img src="img/0014651.jpg" alt="TOTAL BLOCK SPF100 50G" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PROTECTOR SOLAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">TOTAL BLOCK SPF100 50G</h3>
+                    <p class="card-description">El protector solar Total Block SPF 100 de 50 g de Yanbal es un producto dermatológico de alta protección diseñado para el cuidado diario contra las radiaciones solares dañinas e impurezas ambientales. Su presentación de 50 gramos es compacta e ideal para llevar de viaje o en el bolso.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="11.99">$11,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'TOTAL BLOCK SPF100 50G', 11.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20TOTAL%20BLOCK%20SPF100%2050G" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 54 -->
+        <div class="card" data-category="protector solar" data-name="avon care sun+ rostro fps50 control brillo 50g 7909189137961">
+            <div class="image-container">
+                <img src="img/7909189137961.jpg" alt="AVON CARE SUN+ ROSTRO FPS50 CONTROL BRILLO 50G" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">PROTECTOR SOLAR</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">AVON CARE SUN+ ROSTRO FPS50 CONTROL BRILLO 50G</h3>
+                    <p class="card-description">Protector solar facial diseñado principalmente para pieles mixtas a grasas, ofreciendo una alta protección contra las radiaciones solares mientras mantiene la piel libre de excesos de oleosidad.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="8.99">$8,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'AVON CARE SUN+ ROSTRO FPS50 CONTROL BRILLO 50G', 8.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20AVON%20CARE%20SUN%2B%20ROSTRO%20FPS50%20CONTROL%20BRILLO%2050G" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 55 -->
+        <div class="card" data-category="cuida tu piel" data-name="loción corporal multicrem nutrients edición limitada de esika 1l 3993">
+            <div class="image-container">
+                <img src="img/3993.jpg" alt="LOCIÓN CORPORAL MULTICREM NUTRIENTS EDICIÓN LIMITADA DE ESIKA 1L" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">LOCIÓN CORPORAL MULTICREM NUTRIENTS EDICIÓN LIMITADA DE ESIKA 1L</h3>
+                    <p class="card-description">Loción Corporal Multicrem Nutrients: Crema nutritiva de 1 litro formulada para piel seca a extra seca. Su fórmula combina ingredientes naturales como avena (protege), germen de trigo (regenera) y miel (hidrata), brindando hasta 72 horas de humectación continua sin dejar sensación grasosa.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="11.99">$11,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'LOCIÓN CORPORAL MULTICREM NUTRIENTS EDICIÓN LIMITADA DE ESIKA 1L', 11.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20LOCIÓN%20CORPORAL%20MULTICREM%20NUTRIENTS%20EDICIÓN%20LIMITADA%20DE%20ESIKA%201L" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 56 -->
+        <div class="card" data-category="cuida tu piel" data-name="crema humectante corporal granada & canela natural care 1l 3994">
+            <div class="image-container">
+                <img src="img/3994.jpg" alt="CREMA HUMECTANTE CORPORAL GRANADA & CANELA NATURAL CARE 1L" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">CREMA HUMECTANTE CORPORAL GRANADA & CANELA NATURAL CARE 1L</h3>
+                    <p class="card-description">Hidratación prolongada: Su fórmula brinda hasta 48 horas de humectación continua, ideal para proteger la piel de la resequedad diaria.Aroma frutal y especiado: Destaca por su fragancia envolvente que mezcla las notas dulces y revitalizantes de la granada con el toque cálido y sensual de la canela.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="10.99">$10,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'CREMA HUMECTANTE CORPORAL GRANADA & CANELA NATURAL CARE 1L', 10.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20CREMA%20HUMECTANTE%20CORPORAL%20GRANADA%20%26%20CANELA%20NATURAL%20CARE%201L" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 57 -->
+        <div class="card" data-category="cuida tu piel" data-name="crema avon glicerina y aceite almendras 1l 7909189339112">
+            <div class="image-container">
+                <img src="img/7909189339112.jpg" alt="CREMA AVON GLICERINA Y ACEITE ALMENDRAS 1L" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">CREMA AVON GLICERINA Y ACEITE ALMENDRAS 1L</h3>
+                    <p class="card-description">Nutrición 6 en 1: Su fórmula integral actúa proporcionando múltiples beneficios que ayudan a proteger, nutrir, suavizar y mejorar visiblemente la textura de la piel. Doble Humectación: Combina la glicerina (que retiene y atrae la humedad) con el aceite de almendras (rico en nutrientes y antioxidantes) para brindar hidratación profunda por hasta 24 o 48 horas.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="8.99">$8,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'CREMA AVON GLICERINA Y ACEITE ALMENDRAS 1L', 8.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20CREMA%20AVON%20GLICERINA%20Y%20ACEITE%20ALMENDRAS%201L" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 58 -->
+        <div class="card" data-category="cuida tu piel" data-name="crema corporal avon care aceite / oleo de coco 1l 7909189367344">
+            <div class="image-container">
+                <img src="img/7909189367344.jpg" alt="CREMA CORPORAL AVON CARE ACEITE / OLEO DE COCO 1L" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">CREMA CORPORAL AVON CARE ACEITE / OLEO DE COCO 1L</h3>
+                    <p class="card-description">Fórmula 6 en 1: Ofrece beneficios múltiples que incluyen nutrición profunda, alivio de la tirantez, restauración intensiva y rápida absorción. 48 horas de humectación: Mantiene la barrera de la piel protegida frente a la resequedad por hasta dos días completos.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="8.99">$8,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'CREMA CORPORAL AVON CARE ACEITE / OLEO DE COCO 1L', 8.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20CREMA%20CORPORAL%20AVON%20CARE%20ACEITE%20/%20OLEO%20DE%20COCO%201L" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 59 -->
+        <div class="card" data-category="cuida tu piel" data-name="crema corporal avon care milk 6 en 1 1l 7909189351381">
+            <div class="image-container">
+                <img src="img/7909189351381.jpg" alt="CREMA CORPORAL AVON CARE MILK 6 EN 1 1L" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">CREMA CORPORAL AVON CARE MILK 6 EN 1 1L</h3>
+                    <p class="card-description">Loción hidratante de tamaño familiar diseñada para el cuidado diario de todo tipo de piel. Su fórmula destaca por estar enriquecida con Vitamina E, un potente antioxidante que ayuda a proteger la barrera cutánea contra factores ambientales y previene la resequedad. Humectación por 24 horas: Mantiene la piel suave e hidratada de manera efectiva durante todo el día.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="7.99">$7,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'CREMA CORPORAL AVON CARE MILK 6 EN 1 1L', 7.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20CREMA%20CORPORAL%20AVON%20CARE%20MILK%206%20EN%201%201L" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 60 -->
+        <div class="card" data-category="cuida tu piel" data-name="biomilk sensitive 750ml yanbal 0014186">
+            <div class="image-container">
+                <img src="img/0014186.jpg" alt="BIOMILK SENSITIVE 750ML YANBAL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">BIOMILK SENSITIVE 750ML YANBAL</h3>
+                    <p class="card-description">Tratamiento especializado diseñado para pieles sensibles y extrasecas. Su principal función es reforzar la barrera protectora cutánea y ofrecer una hidratación profunda y continua de hasta 48 horas. Fórmula sin aroma: Al ser completamente neutra y libre de fragancias, reduce significativamente el riesgo de alergias o irritaciones en pieles reactivas.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="11.99">$11,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'BIOMILK SENSITIVE 750ML YANBAL', 11.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20BIOMILK%20SENSITIVE%20750ML%20YANBAL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 61 -->
+        <div class="card" data-category="cuida tu piel" data-name="biomilk intensive 750ml yanbal 0013390">
+            <div class="image-container">
+                <img src="img/0013390.jpg" alt="BIOMILK INTENSIVE 750ML YANBAL" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">BIOMILK INTENSIVE 750ML YANBAL</h3>
+                    <p class="card-description">Crema corporal de hidratación avanzada formulada específicamente para pieles de normales a secas o con fuerte tendencia a la resequedad. Hidratación prolongada: Ofrece hasta 24 horas de hidratación profunda continua.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="11.99">$11,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'BIOMILK INTENSIVE 750ML YANBAL', 11.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20BIOMILK%20INTENSIVE%20750ML%20YANBAL" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 62 -->
+        <div class="card" data-category="cuida tu piel" data-name="ekos castanha - polpa hidratante corporal 400ml natura 7909883353483">
+            <div class="image-container">
+                <img src="img/7909883353483.jpg" alt="EKOS CASTANHA - POLPA HIDRATANTE CORPORAL 400ML NATURA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">EKOS CASTANHA - POLPA HIDRATANTE CORPORAL 400ML NATURA</h3>
+                    <p class="card-description">Es uno de los tratamientos biocosméticos más emblemáticos de la marca Natura, diseñado específicamente como un escudo antiresequedad para nutrir profundamente las pieles secas o extra secas. El ingrediente estrella es el aceite bruto de castaña (nuez de Brasil), recolectado de forma sostenible por comunidades amazónicas. Este bioactivo es naturally rico en omegas 6 y 9, los cuales estimulan la producción de proteínas en las capas más profundas de la piel, revirtiendo los signos de descamación desde la primera aplicación.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="12.99">$12,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'EKOS CASTANHA - POLPA HIDRATANTE CORPORAL 400ML NATURA', 12.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20EKOS%20CASTANHA%20-%20POLPA%20HIDRATANTE%20CORPORAL%20400ML%20NATURA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 63 -->
+        <div class="card" data-category="cuida tu piel" data-name="tododia frutas rojas 400ml natura 7908132274944">
+            <div class="image-container">
+                <img src="img/7908132274944.jpg" alt="TODODIA FRUTAS ROJAS 400ML NATURA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">TODODIA FRUTAS ROJAS 400ML NATURA</h3>
+                    <p class="card-description">Destaca por su aroma dulce, alegre y vibrante, que mezcla notas de fresa, mora y frutos rojos con toques de flores frescas y un fondo dulce. Su punto fuerte es la tecnología de nutrición prebiótica, que se adapta a las necesidades de tu tipo de piel, dejándola más firme y ultra suave. Contiene además manteca de cacao y aceite de linaza. También cuenta con la opción de repuesto ecológico para rellenar el envase original.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="12.99">$12,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'TODODIA FRUTAS ROJAS 400ML NATURA', 12.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20TODODIA%20FRUTAS%20ROJAS%20400ML%20NATURA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 64 -->
+        <div class="card" data-category="cuida tu piel" data-name="ekos tukumá 400ml natura 7908240850481">
+            <div class="image-container">
+                <img src="img/7908240850481.jpg" alt="EKOS TUKUMÁ 400ML NATURA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">EKOS TUKUMÁ 400ML NATURA</h3>
+                    <p class="card-description">Es una colección de productos de cuidado personal antiseñales y de alta hidratación, formulada con el óleo y la manteca bruta del tucumá, un fruto proveniente de una gran palmera de la Amazonía. Su principal beneficio científico es que estimula hasta un 77% la producción natural de ácido hialurónico en el cuerpo, rellenando las capas más profundas de la piel y combatiendo los signos del envejecimiento prematuro.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="12.99">$12,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'EKOS TUKUMÁ 400ML NATURA', 12.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20EKOS%20TUKUMÁ%20400ML%20NATURA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 65 -->
+        <div class="card" data-category="cuida tu piel" data-name="crema rosa mosqueta y camelia 100g avon 7909189382330">
+            <div class="image-container">
+                <img src="img/7909189382330.jpg" alt="CREMA ROSA MOSQUETA Y CAMELIA 100G AVON" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">CREMA ROSA MOSQUETA Y CAMELIA 100G AVON</h3>
+                    <p class="card-description">Fórmula Multiacción (6 en 1): Ofrece seis soluciones clave para el rostro: protege la barrera de la piel, nutre, revitaliza, humecta profundamente, suaviza y regenera ayudando a disminuir visiblemente pequeñas marcas o líneas finas.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="4.99">$4,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'CREMA ROSA MOSQUETA Y CAMELIA 100G AVON', 4.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20CREMA%20ROSA%20MOSQUETA%20Y%20CAMELIA%20100G%20AVON" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 66 -->
+        <div class="card" data-category="cuida tu piel" data-name="crema corporal avon aguacate 6 en 1 1l 7909189339068">
+            <div class="image-container">
+                <img src="img/7909189339068.jpg" alt="CREMA CORPORAL AVON AGUACATE 6 EN 1 1L" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">CUIDA TU PIEL</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">CREMA CORPORAL AVON AGUACATE 6 EN 1 1L</h3>
+                    <p class="card-description">La crema corporal Avon Care Aguacate (o Palta) 6 en 1 es un tratamiento de humectación intensiva diseñado especialmente para el cuidado diario de la piel seca y extra seca de toda la familia. Contiene aceite de aguacate genuino y acetato de tocoferilo (Vitamina E), un potente antioxidante que protege las células de la piel. Ideal para uso diario en todo el cuerpo, especialmente en zonas propensas a mayor resequedad como codos, rodillas y talones.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="8.89">$8,89</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'CREMA CORPORAL AVON AGUACATE 6 EN 1 1L', 8.89)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20CREMA%20CORPORAL%20AVON%20AGUACATE%206%20EN%201%201L" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTOS NUEVOS DE NIÑOS -->
+
+        <!-- PRODUCTO 67 -->
+        <div class="card" data-category="niños" data-name="colonia mini chics 120ml ésika 39901">
+            <div class="image-container">
+                <img src="img/39901.jpg" alt="COLONIA MINI CHICS 120ML ÉSIKA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">NIÑOS</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">COLONIA MINI CHICS 120ML ÉSIKA</h3>
+                    <p class="card-description">Mini Chics es una popular línea de productos de cuidado personal de la marca Ésika diseñada especialmente para niñas. Su producto más conocido es la colonia infantil de 120 ml, famosa por incluir estrellas brillantes o glitter en su fórmula para dejar un sutil brillo en la piel.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="6.99">$6,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'COLONIA MINI CHICS 120ML ÉSIKA', 6.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20COLONIA%20MINI%20CHICS%20120ML%20ÉSIKA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 68 -->
+        <div class="card" data-category="niños" data-name="colonia comando force xplash 120ml ésika 3991">
+            <div class="image-container">
+                <img src="img/3991.jpg" alt="COLONIA COMANDO FORCE XPLASH 120ML ÉSIKA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">NIÑOS</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">COLONIA COMANDO FORCE XPLASH 120ML ÉSIKA</h3>
+                    <p class="card-description">Comando Force de Ésika es una línea de cuidado personal diseñada especialmente para niños, conocida principalmente por sus fragancias frescas y divertidas.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="6.99">$6,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'COLONIA COMANDO FORCE XPLASH 120ML ÉSIKA', 6.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20COLONIA%20COMANDO%20FORCE%20XPLASH%20120ML%20ÉSIKA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCTO 69 -->
+        <div class="card" data-category="niños" data-name="colonia comando force aromax 120ml ésika 3992">
+            <div class="image-container">
+                <img src="img/3992.jpg" alt="COLONIA COMANDO FORCE AROMAX 120ML ÉSIKA" onclick="abrirZoom(this)">
+                <div class="zoom-icon"><i class="fa-solid fa-magnifying-glass-plus"></i></div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="card-header-tags">
+                        <span class="card-badge">NIÑOS</span>
+                        <span class="stock-badge available"><i class="fa-solid fa-circle-check"></i> Disponible</span>
+                    </div>
+                    <h3 class="card-title">COLONIA COMANDO FORCE AROMAX 120ML ÉSIKA</h3>
+                    <p class="card-description">Comando Force Aromax de Ésika es una popular colonia infantil diseñada especialmente para niños (generalmente recomendada a partir de los 5 años), inspirada en un concepto de pequeños aventureros y superhéroes.</p>
+                </div>
+                <div class="card-footer">
+                    <div class="price-and-qty">
+                        <span class="price" data-price="6.99">$6,99</span>
+                        <div class="card-qty-selector">
+                            <button onclick="cambiarCardQty(this, -1)">-</button>
+                            <span class="card-qty-val">1</span>
+                            <button onclick="cambiarCardQty(this, 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="card-actions-row">
+                        <button class="btn-add-cart" onclick="agregarAlCarritoDesdeCard(this, 'COLONIA COMANDO FORCE AROMAX 120ML ÉSIKA', 6.99)">
+                            <i class="fa-solid fa-cart-plus"></i> Carrito
+                        </button>
+                        <a href="https://wa.me/593985282615?text=Hola,%20estoy%20interesado%20en%20el%20COLONIA%20COMANDO%20FORCE%20AROMAX%20120ML%20ÉSIKA" class="btn-whatsapp" target="_blank"><i class="fa-brands fa-whatsapp"></i> Pedir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- VENTANA MODAL DEL CARRITO DE COMPRAS -->
+    <div id="modalCarrito" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-cart-shopping"></i> Tu Carrito de Compras</h2>
+                <button class="close-modal" onclick="cerrarModalCarrito()">&times;</button>
+            </div>
+            <div class="modal-body" id="listaCarrito">
+                <!-- Se llena dinámicamente -->
+            </div>
+            <div class="modal-footer">
+                <div class="cart-total">Total: $<span id="totalCarrito">0.00</span></div>
+                <button class="btn-checkout" onclick="enviarPedidoWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Enviar Pedido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VENTANA MODAL DE ZOOM / LUPA DE IMÁGENES -->
+    <div id="zoomModal" class="zoom-modal" onclick="cerrarZoom()">
+        <span class="zoom-close">&times;</span>
+        <img class="zoom-modal-content" id="imgZoom">
+        <div id="zoomCaption" class="zoom-caption"></div>
+    </div>
+
+    <!-- SCRIPTS DE FUNCIONALIDAD -->
+    <script>
+        let carrito = [];
+
+        /* Selector numérico en cada tarjeta (+ / -) */
+        function cambiarCardQty(btn, cambio) {
+            const selectorSpan = btn.parentElement.querySelector('.card-qty-val');
+            let val = parseInt(selectorSpan.innerText) + cambio;
+            if (val < 1) val = 1;
+            selectorSpan.innerText = val;
+        }
+
+        /* Agregar al carrito desde la tarjeta tomando la cantidad seleccionada */
+        function agregarAlCarritoDesdeCard(button, nombreProducto, precio) {
+            const cardFooter = button.closest('.card-footer');
+            const qtyVal = parseInt(cardFooter.querySelector('.card-qty-val').innerText);
+
+            const encontrado = carrito.find(item => item.nombre === nombreProducto);
+            if (encontrado) {
+                encontrado.cantidad += qtyVal;
+            } else {
+                carrito.push({ nombre: nombreProducto, precio: parseFloat(precio), cantidad: qtyVal });
+            }
+            actualizarContadorCarrito();
+            
+            button.style.backgroundColor = '#25d366';
+            let textoOriginal = button.innerHTML;
+            button.innerHTML = '<i class="fa-solid fa-check"></i> ¡Agregado!';
+            setTimeout(() => {
+                button.style.backgroundColor = '';
+                button.innerHTML = textoOriginal;
+            }, 700);
+
+            // Reiniciar el selector de la tarjeta a 1
+            cardFooter.querySelector('.card-qty-val').innerText = '1';
+        }
+
+        function actualizarContadorCarrito() {
+            let totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+            document.getElementById('contador-carrito').innerText = totalItems;
+        }
+
+        function abrirModalCarrito() {
+            const lista = document.getElementById('listaCarrito');
+            lista.innerHTML = '';
+
+            if (carrito.length === 0) {
+                lista.innerHTML = '<p style="text-align: center; color: #777; padding: 20px;">Tu carrito está vacío. ¡Agrega productos desde el catálogo!</p>';
+                document.getElementById('totalCarrito').innerText = '0.00';
+            } else {
+                let totalGeneral = 0;
+                carrito.forEach((item, index) => {
+                    let subtotal = item.precio * item.cantidad;
+                    totalGeneral += subtotal;
+
+                    lista.innerHTML += `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <span class="cart-item-title">${item.nombre}</span>
+                                <span class="cart-item-price">$${item.precio.toFixed(2)} x ${item.cantidad} = <strong>$${subtotal.toFixed(2)}</strong></span>
+                            </div>
+                            <div class="cart-item-controls">
+                                <button onclick="cambiarCantidadModal(${index}, -1)">-</button>
+                                <span>${item.cantidad}</span>
+                                <button onclick="cambiarCantidadModal(${index}, 1)">+</button>
+                                <button class="btn-remove" onclick="eliminarItem(${index})"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </div>
+                    `;
+                });
+                document.getElementById('totalCarrito').innerText = totalGeneral.toFixed(2);
+            }
+
+            document.getElementById('modalCarrito').style.display = 'flex';
+        }
+
+        function cerrarModalCarrito() {
+            document.getElementById('modalCarrito').style.display = 'none';
+        }
+
+        function cambiarCantidadModal(index, cambio) {
+            carrito[index].cantidad += cambio;
+            if (carrito[index].cantidad <= 0) {
+                carrito.splice(index, 1);
+            }
+            actualizarContadorCarrito();
+            abrirModalCarrito();
+        }
+
+        function eliminarItem(index) {
+            carrito.splice(index, 1);
+            actualizarContadorCarrito();
+            abrirModalCarrito();
+        }
+
+        function enviarPedidoWhatsApp() {
+            if (carrito.length === 0) {
+                alert("Tu carrito está vacío.");
+                return;
+            }
+            let mensaje = "Hola, estoy interesado en realizar el siguiente pedido:\n\n";
+            let totalGeneral = 0;
+            carrito.forEach(item => {
+                let subtotal = item.precio * item.cantidad;
+                totalGeneral += subtotal;
+                mensaje += `- ${item.cantidad}x ${item.nombre} ($${subtotal.toFixed(2)})\n`;
+            });
+            mensaje += `\n*Total Estimado: $${totalGeneral.toFixed(2)}*`;
+
+            let url = "https://wa.me/593985282615?text=" + encodeURIComponent(mensaje);
+            window.open(url, '_blank');
+        }
+
+        function filtrarProductos() {
+            let input = document.getElementById('buscador').value.toLowerCase();
+            let cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                let name = card.getAttribute('data-name');
+                let title = card.querySelector('.card-title').innerText.toLowerCase();
+                if (name.includes(input) || title.includes(input)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        function filtrarCategoria(categoria, btn) {
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            let cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                let catCard = card.getAttribute('data-category').toLowerCase();
+                if (categoria === 'todos' || catCard.includes(categoria)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        /* Funciones de la Lupa / Zoom de Imágenes */
+        function abrirZoom(imgElement) {
+            const modal = document.getElementById('zoomModal');
+            const modalImg = document.getElementById('imgZoom');
+            const captionText = document.getElementById('zoomCaption');
+            
+            modal.style.display = "flex";
+            modalImg.src = imgElement.src;
+            captionText.innerHTML = imgElement.alt;
+        }
+
+        function cerrarZoom() {
+            document.getElementById('zoomModal').style.display = "none";
+        }
+    </script>
+</body>
+</html>
